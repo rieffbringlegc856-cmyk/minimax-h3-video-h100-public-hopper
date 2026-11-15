@@ -312,7 +312,7 @@ def handler(event):
             if "inputs" in n_data and "enable_fp16_accumulation" in n_data["inputs"]:
                 n_data["inputs"]["enable_fp16_accumulation"] = False
 
-    # Принудительно отключаем проблемный SolAttnPatch, чтобы задействовать чистый SageAttention
+    # Принудительно отключаем проблемный SolAttnPatch
     if "9859:9752" in wf and "inputs" in wf["9859:9752"]:
         wf["9859:9752"]["inputs"]["switch"] = False
 
