@@ -32,6 +32,20 @@ def ensure_comfyui_ready():
     else:
         print("=== [WARNING] Models directory not found in /runpod-volume! ===", flush=True)
 
+    # Авто-патч KJNodes для Hopper (sm_90) против NoneType ошибок
+    try:
+        kj_path = "/workspace/ComfyUI/custom_nodes/ComfyUI-KJNodes/nodes/ltxv_nodes.py"
+        if os.path.exists(kj_path):
+            with open(kj_path, "r", encoding="utf-8") as f:
+                content = f.read()
+            if "_cuda_archs[0]" in content:
+                content = content.replace("_cuda_archs[0]", '(_cuda_archs[0] if _cuda_archs else "sm90")')
+                with open(kj_path, "w", encoding="utf-8") as f:
+                    f.write(content)
+                print("[INIT] KJNodes _cuda_archs runtime patch applied successfully!", flush=True)
+    except Exception as e:
+        print(f"[INIT] KJNodes patch warning: {e}", flush=True)
+
     # Переменные CUDA под H100 SXM / H200 (архитектура Hopper sm_90)
     os.environ["TORCH_CUDA_ARCH_LIST"] = "9.0"
     os.environ["CUDA_ARCH"] = "90"
