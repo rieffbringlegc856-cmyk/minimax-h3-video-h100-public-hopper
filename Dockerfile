@@ -53,6 +53,10 @@ RUN for dir in */; do \
         fi; \
     done
 
+# Копируем и запускаем патч для comfy_kitchen после установки всех зависимостей
+COPY patch_kitchen.py /workspace/patch_kitchen.py
+RUN python3 /workspace/patch_kitchen.py
+
 # Копируем наши скрипты и воркфлоу в самом конце для быстрого кеширования слоёв Docker
 RUN mkdir -p /workspace/ComfyUI/custom_nodes/MiniMax_S3_Loader
 COPY minimax_s3_loader.py /workspace/ComfyUI/custom_nodes/MiniMax_S3_Loader/__init__.py
