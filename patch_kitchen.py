@@ -91,3 +91,19 @@ if base_dir and os.path.exists(base_dir):
             f.write(sage_code)
 else:
     print("Warning: comfy_kitchen directory not found during build patch, skipping...")
+
+# 4. Исправление определения архитектуры CUDA в KJNodes для SageAttention на H100 (sm_90)
+    kj_ltxv_path = "/workspace/ComfyUI/custom_nodes/ComfyUI-KJNodes/nodes/ltxv_nodes.py"
+    if os.path.exists(kj_ltxv_path):
+        with open(kj_ltxv_path, "r", encoding="utf-8") as f:
+            kj_code = f.read()
+        
+        # Исправляем место, где _cuda_archs может быть None
+        bad_check = "_cuda_archs[0]"
+        safe_check = '(_cuda_archs[0] if _cuda_archs else "sm90")'
+        
+        if bad_check in kj_code and safe_check not in kj_code:
+            kj_code = kj_code.replace(bad_check, safe_check)
+            with open(kj_ltxv_path, "w", encoding="utf-8") as f:
+                f.write(kj_code)
+            print("KJNodes _cuda_archs None-safety patch applied successfully!")
