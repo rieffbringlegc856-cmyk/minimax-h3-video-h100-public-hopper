@@ -32,17 +32,28 @@ def ensure_comfyui_ready():
     else:
         print("=== [WARNING] Models directory not found in /runpod-volume! ===", flush=True)
 
-    # Авто-патч KJNodes для Hopper (sm_90) против NoneType ошибок
+    # Авто-патч KJNodes для Hopper (sm_90): исправление _cuda_archs и добавление заглушки per_channel_fp8
     try:
         kj_path = "/workspace/ComfyUI/custom_nodes/ComfyUI-KJNodes/nodes/ltxv_nodes.py"
         if os.path.exists(kj_path):
             with open(kj_path, "r", encoding="utf-8") as f:
                 content = f.read()
+            
+            modified = False
             if "_cuda_archs[0]" in content:
                 content = content.replace("_cuda_archs[0]", '(_cuda_archs[0] if _cuda_archs else "sm90")')
+                modified = True
+
+            # Добавляем заглушку per_channel_fp8, если её нет в файле
+            if "def per_channel_fp8" not in content:
+                stub = "\ndef per_channel_fp8(v, tensor_layout=0, smooth_v=False):\n    return v, None, None\n"
+                content = stub + content
+                modified = True
+
+            if modified:
                 with open(kj_path, "w", encoding="utf-8") as f:
                     f.write(content)
-                print("[INIT] KJNodes _cuda_archs runtime patch applied successfully!", flush=True)
+                print("[INIT] KJNodes runtime patches applied successfully!", flush=True)
     except Exception as e:
         print(f"[INIT] KJNodes patch warning: {e}", flush=True)
 
