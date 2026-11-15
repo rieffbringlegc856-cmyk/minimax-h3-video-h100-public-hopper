@@ -32,7 +32,7 @@ def ensure_comfyui_ready():
     else:
         print("=== [WARNING] Models directory not found in /runpod-volume! ===", flush=True)
 
-    # Авто-патч KJNodes для Hopper (sm_90): исправление _cuda_archs и добавление заглушки per_channel_fp8
+    # Авто-патч KJNodes для Hopper (sm_90): корректные заглушки для comfy_kitchen и преквантования
     try:
         kj_path = "/workspace/ComfyUI/custom_nodes/ComfyUI-KJNodes/nodes/ltxv_nodes.py"
         if os.path.exists(kj_path):
@@ -44,9 +44,9 @@ def ensure_comfyui_ready():
                 content = content.replace("_cuda_archs[0]", '(_cuda_archs[0] if _cuda_archs else "sm90")')
                 modified = True
 
-            # Добавляем заглушку per_channel_fp8, если её нет в файле
+            # Заглушка per_channel_fp8, возвращающая одиночный тензор/объект во избежание TypeError с кортежем
             if "def per_channel_fp8" not in content:
-                stub = "\ndef per_channel_fp8(v, tensor_layout=0, smooth_v=False):\n    return v, None, None\n"
+                stub = "\ndef per_channel_fp8(v, tensor_layout=0, smooth_v=False):\n    return v\n"
                 content = stub + content
                 modified = True
 
