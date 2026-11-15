@@ -296,37 +296,56 @@ def handler(event):
     if "9859:9853" in wf:
         wf["9859:9853"]["inputs"]["device"] = "default"
 
-    # Настройка LoRA (ноды 159 Main и 9561 Refiner - Power Lora Loader rgthree)
-    user_loras = job_input.get("loras", [])
-    if user_loras:
-        print(f"[HANDLER] Принято {len(user_loras)} доп. LoRA:", flush=True)
-        for idx, lora_item in enumerate(user_loras, start=1):
-            lora_filename = str(lora_item.get("name") or lora_item.get("file") or "").strip()
-            raw_strength = lora_item.get("strength", 1.0)
+    # =========================================================================
+    # ДИНАМИЧЕСКАЯ НАСТРОЙКА ЦЕПОЧКИ LORA (от 0 до 4 штук)
+    # Заменяет старые PowerLoraLoader на интеллектуальное управление слотами 9657:1 - 9657:4
+    # =========================================================================
+    raw_loras = job_input.get("loras", [])
+    valid_loras = []
+    for lora_item in raw_loras:
+        l_name = str(lora_item.get("name") or lora_item.get("file") or "").strip()
+        if l_name:
+            if not l_name.endswith(".safetensors"):
+                l_name += ".safetensors"
             try:
-                lora_strength = float(raw_strength)
+                l_str = float(lora_item.get("strength", 1.0))
             except (ValueError, TypeError):
-                lora_strength = 1.0
+                l_str = 1.0
+            valid_loras.append({"name": l_name, "strength": l_str})
 
-            if not lora_filename:
-                continue
+    print(f"[HANDLER] Активных LoRA к применению: {len(valid_loras)}", flush=True)
 
-            if not lora_filename.endswith(".safetensors"):
-                lora_filename += ".safetensors"
+    # Исходная точка для модели перед лорами — выход ноды ModelSamplingMiniMaxH3 (нода 47)
+    last_lora_output_node = "47"
 
-            slot_key = f"lora_{idx}"
-            slot_data = {
-                "on": True,
-                "lora": lora_filename,
-                "strength": lora_strength,
-            }
+    for i in range(1, 5):
+        node_id = f"9657:{i}"
+        if node_id in wf:
+            if i <= len(valid_loras):
+                lora_data = valid_loras[i - 1]
+                wf[node_id]["inputs"]["lora_name"] = lora_data["name"]
+                wf[node_id]["inputs"]["strength_model"] = lora_data["strength"]
+                
+                # Выстраиваем цепочку передачи модели последовательно
+                if i == 1:
+                    wf[node_id]["inputs"]["model"] = ["47", 0]
+                else:
+                    wf[node_id]["inputs"]["model"] = [f"9657:{i-1}", 0]
+                
+                last_lora_output_node = node_id
+                print(f"  -> Слот {i} ({node_id}) активен: {lora_data['name']} (сила: {lora_data['strength']})", flush=True)
+            else:
+                # Если лор меньше, чем слот — удаляем лишнюю ноду из графа воркфлоу
+                del wf[node_id]
+                print(f"  -> Слот {i} ({node_id}) отключен (нет лор)", flush=True)
 
-            if "159" in wf and "inputs" in wf["159"]:
-                wf["159"]["inputs"][slot_key] = slot_data
-            if "9561" in wf and "inputs" in wf["9561"]:
-                wf["9561"]["inputs"][slot_key] = slot_data
-
-            print(f"  -> Применено в ноды 159 и 9561: {slot_key} = {slot_data}", flush=True)
+    # Перенаправляем выход модели для последующих нод (например, BasicGuider или ModelSampling)
+    # на последнюю реально отработавшую ноду лор (или на ноду 47, если лор вообще 0)
+    for n_id, n_data in wf.items():
+        if "inputs" in n_data:
+            for k, v in n_data["inputs"].items():
+                if isinstance(v, list) and len(v) == 2 and v[0].startswith("9657:"):
+                    n_data["inputs"][k] = [last_lora_output_node, 0]
 
     # Порог чанков под H100 (убираем дробление под 24GB 4090)
     for n_id, n_data in wf.items():
