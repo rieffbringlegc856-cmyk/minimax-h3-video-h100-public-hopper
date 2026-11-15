@@ -287,6 +287,10 @@ def handler(event):
             if "inputs" in n_data and "enable_fp16_accumulation" in n_data["inputs"]:
                 n_data["inputs"]["enable_fp16_accumulation"] = False
 
+    # Принудительно отключаем проблемный SolAttnPatch, чтобы задействовать чистый SageAttention
+    if "9859:9752" in wf and "inputs" in wf["9859:9752"]:
+        wf["9859:9752"]["inputs"]["switch"] = False
+
     # Включаем SageAttention (на H100 работает нативно в FP8/BF16)
     if "9859:9709" in wf:
         wf["9859:9709"]["inputs"]["choice"] = "sage_attention"
