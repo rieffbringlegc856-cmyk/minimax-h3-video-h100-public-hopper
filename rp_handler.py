@@ -321,6 +321,10 @@ def handler(event):
         wf["9859:9709"]["inputs"]["choice"] = "comfy_kitchen_attention"
         wf["9859:9709"]["inputs"]["index"] = 0
 
+   # Принудительно отключаем Mem Eff Sage Attention Patch, чтобы не вызывать сломанные бинарники _qattn_sm90
+    if "9859:9752" in wf:
+        wf["9859:9752"]["inputs"]["switch"] = False 
+
     # На H100 (80GB+) держим Qwen3-VL CLIP прямо на GPU для максимальной скорости
     if "9859:9853" in wf:
         wf["9859:9853"]["inputs"]["device"] = "default"
