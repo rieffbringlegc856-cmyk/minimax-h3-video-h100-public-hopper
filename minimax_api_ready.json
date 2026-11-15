@@ -1007,19 +1007,19 @@
     }
   },
   "9859:9857": {
-    "inputs": {
-      "chunks": 64,
-      "seq_threshold": 1536,
-      "model": [
-        "9859:9825",
-        0
-      ]
+        "inputs": {
+            "chunks": 64,
+            "seq_threshold": 1536,
+            "model": [
+                "9859:9713",
+                0
+            ]
+        },
+        "class_type": "MiniMaxChunkFeedForward",
+        "_meta": {
+            "title": "MiniMax H3 Chunk FeedForward"
+        }
     },
-    "class_type": "MiniMaxChunkFeedForward",
-    "_meta": {
-      "title": "MiniMax H3 Chunk FeedForward"
-    }
-  },
   "9859:9713": {
     "inputs": {
       "select": [
