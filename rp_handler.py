@@ -316,10 +316,10 @@ def handler(event):
     if "9859:9752" in wf and "inputs" in wf["9859:9752"]:
         wf["9859:9752"]["inputs"]["switch"] = False
 
-    # Включаем SageAttention (на H100 работает нативно в FP8/BF16)
+    # Переключаем бэкенд внимания на стабильный comfy_kitchen_attention (обходит ошибки sageattention на Hopper)
     if "9859:9709" in wf:
-        wf["9859:9709"]["inputs"]["choice"] = "sage_attention"
-        wf["9859:9709"]["inputs"]["index"] = 1
+        wf["9859:9709"]["inputs"]["choice"] = "comfy_kitchen_attention"
+        wf["9859:9709"]["inputs"]["index"] = 0
 
     # На H100 (80GB+) держим Qwen3-VL CLIP прямо на GPU для максимальной скорости
     if "9859:9853" in wf:
