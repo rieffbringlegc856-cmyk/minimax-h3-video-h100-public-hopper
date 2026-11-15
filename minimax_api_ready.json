@@ -1,0 +1,2308 @@
+{
+  "9": {
+    "inputs": {
+      "model": [
+        "9440:9347",
+        0
+      ],
+      "conditioning": [
+        "9608",
+        0
+      ]
+    },
+    "class_type": "BasicGuider",
+    "_meta": {
+      "title": "Guider (Main)"
+    }
+  },
+  "10": {
+    "inputs": {
+      "sampler_name": [
+        "9525:9523",
+        0
+      ]
+    },
+    "class_type": "KSamplerSelect",
+    "_meta": {
+      "title": "KSamplerSelect"
+    }
+  },
+  "47": {
+    "inputs": {
+      "shift_video": 12,
+      "shift_audio": 6,
+      "model": [
+        "153",
+        0
+      ]
+    },
+    "class_type": "MiniMaxH3SigmaShift",
+    "_meta": {
+      "title": "ModelSamplingMiniMaxH3"
+    }
+  },
+  "153": {
+    "inputs": {
+      "max_resolution": 960,
+      "jpeg_quality": 75,
+      "suppress_default_preview": true,
+      "preview_frames": 1024,
+      "preview_fps": 24,
+      "tiny_vae": "taeh3.safetensors",
+      "model": [
+        "9432:177",
+        0
+      ]
+    },
+    "class_type": "ModelPreviewOverrideKJ",
+    "_meta": {
+      "title": "Sampling Live Preview"
+    }
+  },
+  "9428": {
+    "inputs": {
+      "seed": 853825741252648
+    },
+    "class_type": "easy seed",
+    "_meta": {
+      "title": "📄 Prompt Seed"
+    }
+  },
+  "9429": {
+    "inputs": {
+      "text": "",
+      "anything": [
+        "9430:9398",
+        0
+      ]
+    },
+    "class_type": "easy showAnything",
+    "_meta": {
+      "title": "Final Prompt Preview"
+    }
+  },
+  "9435": {
+    "inputs": {
+      "item_0": [
+        "9517",
+        0
+      ],
+      "item_1": [
+        "9598",
+        1
+      ],
+      "item_2": [
+        "9428",
+        0
+      ],
+      "item_3": [
+        "9438",
+        0
+      ],
+      "item_4": ""
+    },
+    "class_type": "Basic data handling: ListCreate",
+    "_meta": {
+      "title": "Prompt Parameters LIST"
+    }
+  },
+  "9438": {
+    "inputs": {
+      "Xi": 10,
+      "Xf": 10,
+      "isfloatX": 1
+    },
+    "class_type": "mxSlider",
+    "_meta": {
+      "title": "Duration  |  Seconds"
+    }
+  },
+  "9457": {
+    "inputs": {
+      "seed": 573161085064192
+    },
+    "class_type": "easy seed",
+    "_meta": {
+      "title": "🎞️ Video Seed"
+    }
+  },
+  "9517": {
+    "inputs": {
+      "image": [
+        "9515:9514",
+        0
+      ]
+    },
+    "class_type": "ImageExists",
+    "_meta": {
+      "title": "Image Exists"
+    }
+  },
+  "9526": {
+    "inputs": {
+      "Xi": 8,
+      "Xf": 8,
+      "isfloatX": 0
+    },
+    "class_type": "mxSlider",
+    "_meta": {
+      "title": "Main  |  Steps"
+    }
+  },
+  "9546": {
+    "inputs": {
+      "filename_prefix": "MMH3/ND_MiniMax_H3",
+      "format": "mp4",
+      "format.codec": "h264",
+      "format.codec.encoding": "re-encode",
+      "format.codec.encoding.crf": 12,
+      "codec": "auto",
+      "video": [
+        "9597",
+        0
+      ]
+    },
+    "class_type": "SaveVideo",
+    "_meta": {
+      "title": "Save Final Video"
+    }
+  },
+  "9547": {
+    "inputs": {
+      "fps": 24,
+      "bit_depth": 8,
+      "color_space": "sRGB",
+      "codec": "none",
+      "images": [
+        "9582",
+        0
+      ],
+      "audio": [
+        "9580",
+        0
+      ]
+    },
+    "class_type": "CreateVideo",
+    "_meta": {
+      "title": "Create Video"
+    }
+  },
+  "9571": {
+    "inputs": {
+      "scheduler": [
+        "9525:9524",
+        0
+      ],
+      "steps": [
+        "9526",
+        0
+      ],
+      "denoise": 1,
+      "model": [
+        "9440:9347",
+        0
+      ]
+    },
+    "class_type": "BasicScheduler",
+    "_meta": {
+      "title": "BasicScheduler"
+    }
+  },
+  "9572": {
+    "inputs": {
+      "noise_seed": [
+        "9457",
+        0
+      ]
+    },
+    "class_type": "RandomNoise",
+    "_meta": {
+      "title": "RandomNoise"
+    }
+  },
+  "9574": {
+    "inputs": {
+      "add_noise": "enable",
+      "noise_seed": [
+        "9457",
+        0
+      ],
+      "steps": [
+        "9584",
+        0
+      ],
+      "cfg": 1,
+      "sampler_name": [
+        "9525:9523",
+        0
+      ],
+      "scheduler": [
+        "9525:9524",
+        0
+      ],
+      "start_at_step": [
+        "9578",
+        1
+      ],
+      "end_at_step": 10000,
+      "return_with_leftover_noise": "disable",
+      "model": [
+        "9552:9550",
+        0
+      ],
+      "positive": [
+        "9608",
+        0
+      ],
+      "negative": [
+        "9591",
+        0
+      ],
+      "latent_image": [
+        "9592",
+        0
+      ]
+    },
+    "class_type": "KSamplerAdvanced",
+    "_meta": {
+      "title": "Sampler (Refiner)"
+    }
+  },
+  "9575": {
+    "inputs": {
+      "noise": [
+        "9572",
+        0
+      ],
+      "guider": [
+        "9",
+        0
+      ],
+      "sampler": [
+        "10",
+        0
+      ],
+      "sigmas": [
+        "9571",
+        0
+      ],
+      "latent_image": [
+        "9852",
+        0
+      ]
+    },
+    "class_type": "SamplerCustomAdvanced",
+    "_meta": {
+      "title": "Sampler (Main)"
+    }
+  },
+  "9576": {
+    "inputs": {
+      "switch": [
+        "9593",
+        0
+      ],
+      "on_false": [
+        "9575",
+        0
+      ],
+      "on_true": [
+        "9574",
+        0
+      ]
+    },
+    "class_type": "ComfySwitchNode",
+    "_meta": {
+      "title": "Use Refiner"
+    }
+  },
+  "9578": {
+    "inputs": {
+      "expression": "a - b",
+      "values.a": [
+        "9584",
+        0
+      ],
+      "values.b": [
+        "9581",
+        0
+      ]
+    },
+    "class_type": "ComfyMathExpression",
+    "_meta": {
+      "title": "Start Step Math"
+    }
+  },
+  "9579": {
+    "inputs": {
+      "anything": [
+        "9576",
+        0
+      ]
+    },
+    "class_type": "easy cleanGpuUsed",
+    "_meta": {
+      "title": "Clean VRAM Used"
+    }
+  },
+  "9580": {
+    "inputs": {
+      "samples": [
+        "9575",
+        0
+      ],
+      "vae": [
+        "9432:9431",
+        0
+      ]
+    },
+    "class_type": "VAEDecodeAudio",
+    "_meta": {
+      "title": "VAE Decode Audio"
+    }
+  },
+  "9581": {
+    "inputs": {
+      "Xi": 4,
+      "Xf": 4,
+      "isfloatX": 0
+    },
+    "class_type": "mxSlider",
+    "_meta": {
+      "title": "Refiner | Steps  (More = More Changes)"
+    }
+  },
+  "9582": {
+    "inputs": {
+      "samples": [
+        "9579",
+        0
+      ],
+      "vae": [
+        "9432:179",
+        0
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Decode Video"
+    }
+  },
+  "9584": {
+    "inputs": {
+      "Xi": 20,
+      "Xf": 20,
+      "isfloatX": 0
+    },
+    "class_type": "mxSlider",
+    "_meta": {
+      "title": "Refiner | Thick Details ------------> Thin Details"
+    }
+  },
+  "9589": {
+    "inputs": {
+      "prompt": [
+        "9430:9398",
+        0
+      ],
+      "width": [
+        "9441:5775",
+        3
+      ],
+      "height": [
+        "9441:5775",
+        4
+      ],
+      "length": [
+        "9590",
+        1
+      ],
+      "ref_image_size": "match",
+      "clip": [
+        "9432:178",
+        0
+      ],
+      "vae": [
+        "9432:179",
+        0
+      ],
+      "audio_vae": [
+        "9432:9431",
+        0
+      ],
+      "ref_images.ref_image_0": [
+        "9862",
+        0
+      ],
+      "ref_images.ref_image_1": [
+        "9862",
+        1
+      ],
+      "ref_images.ref_image_2": [
+        "9862",
+        2
+      ],
+      "ref_images.ref_image_3": [
+        "9862",
+        3
+      ],
+      "ref_images.ref_image_4": [
+        "9862",
+        4
+      ],
+      "ref_images.ref_image_5": [
+        "9862",
+        5
+      ],
+      "ref_images.ref_image_6": [
+        "9862",
+        6
+      ],
+      "ref_images.ref_image_7": [
+        "9862",
+        7
+      ],
+      "ref_images.ref_image_8": [
+        "9862",
+        8
+      ],
+      "ref_videos.ref_video_0": [
+        "9862",
+        9
+      ],
+      "ref_videos.ref_video_1": [
+        "9862",
+        10
+      ],
+      "ref_videos.ref_video_2": [
+        "9862",
+        11
+      ],
+      "ref_video_audios.ref_video_audio_0": [
+        "9850:9783",
+        0
+      ],
+      "ref_video_audios.ref_video_audio_1": [
+        "9848:9785",
+        0
+      ],
+      "ref_video_audios.ref_video_audio_2": [
+        "9846:9789",
+        0
+      ],
+      "ref_audios.ref_audio_0": [
+        "9851:9793",
+        0
+      ],
+      "ref_audios.ref_audio_1": [
+        "9849:9796",
+        0
+      ],
+      "ref_audios.ref_audio_2": [
+        "9847:9799",
+        0
+      ]
+    },
+    "class_type": "MiniMaxH3ReferenceToVideo",
+    "_meta": {
+      "title": "MiniMax H3 Reference to Video"
+    }
+  },
+  "9590": {
+    "inputs": {
+      "expression": "max(5, round(a * 24)) + (5 - (max(5, round(a * 24)) % 17)) % 17",
+      "values.a": [
+        "9438",
+        0
+      ]
+    },
+    "class_type": "ComfyMathExpression",
+    "_meta": {
+      "title": "Math Length"
+    }
+  },
+  "9591": {
+    "inputs": {
+      "conditioning": [
+        "9608",
+        0
+      ]
+    },
+    "class_type": "ConditioningZeroOut",
+    "_meta": {
+      "title": "Conditioning Zero Out"
+    }
+  },
+  "9592": {
+    "inputs": {
+      "anything": [
+        "9575",
+        0
+      ]
+    },
+    "class_type": "easy cleanGpuUsed",
+    "_meta": {
+      "title": "Clean VRAM Used"
+    }
+  },
+  "9593": {
+    "inputs": {
+      "value": false
+    },
+    "class_type": "PrimitiveBoolean",
+    "_meta": {
+      "title": "Use Refiner (Better Quality)"
+    }
+  },
+  "9597": {
+    "inputs": {
+      "anything": [
+        "9547",
+        0
+      ]
+    },
+    "class_type": "easy cleanGpuUsed",
+    "_meta": {
+      "title": "Clean VRAM Used"
+    }
+  },
+  "9598": {
+    "inputs": {
+      "image": [
+        "9604",
+        0
+      ]
+    },
+    "class_type": "ImageExists",
+    "_meta": {
+      "title": "Image Exists"
+    }
+  },
+  "9599": {
+    "inputs": {
+      "any_01": [
+        "9862",
+        0
+      ],
+      "any_02": [
+        "9862",
+        1
+      ],
+      "any_03": [
+        "9862",
+        2
+      ],
+      "any_04": [
+        "9862",
+        3
+      ],
+      "any_05": [
+        "9862",
+        4
+      ],
+      "any_06": [
+        "9862",
+        5
+      ],
+      "any_07": [
+        "9862",
+        6
+      ],
+      "any_08": [
+        "9862",
+        7
+      ],
+      "any_09": [
+        "9862",
+        8
+      ],
+      "any_10": [
+        "9862",
+        9
+      ],
+      "any_11": [
+        "9862",
+        10
+      ],
+      "any_12": [
+        "9862",
+        11
+      ]
+    },
+    "class_type": "Any Switch (rgthree)",
+    "_meta": {
+      "title": "Any Switch (rgthree)"
+    }
+  },
+  "9604": {
+    "inputs": {
+      "any_01": [
+        "9862",
+        0
+      ],
+      "any_02": [
+        "9862",
+        1
+      ],
+      "any_03": [
+        "9862",
+        2
+      ],
+      "any_04": [
+        "9862",
+        3
+      ],
+      "any_05": [
+        "9862",
+        4
+      ],
+      "any_06": [
+        "9862",
+        5
+      ],
+      "any_07": [
+        "9862",
+        6
+      ],
+      "any_08": [
+        "9862",
+        7
+      ],
+      "any_09": [
+        "9862",
+        8
+      ]
+    },
+    "class_type": "Any Switch (rgthree)",
+    "_meta": {
+      "title": "Any Switch (rgthree)"
+    }
+  },
+  "9605": {
+    "inputs": {
+      "image": [
+        "9599",
+        0
+      ]
+    },
+    "class_type": "ImageExists",
+    "_meta": {
+      "title": "Image Exists"
+    }
+  },
+  "9607": {
+    "inputs": {
+      "prompt": [
+        "9430:9398",
+        0
+      ],
+      "width": [
+        "9441:5775",
+        3
+      ],
+      "height": [
+        "9441:5775",
+        4
+      ],
+      "length": [
+        "9590",
+        1
+      ],
+      "clip": [
+        "9432:178",
+        0
+      ],
+      "vae": [
+        "9432:179",
+        0
+      ]
+    },
+    "class_type": "MiniMaxH3ImageToVideo",
+    "_meta": {
+      "title": "MiniMax H3 Image to Video"
+    }
+  },
+  "9608": {
+    "inputs": {
+      "switch": [
+        "9605",
+        1
+      ],
+      "on_false": [
+        "9607",
+        0
+      ],
+      "on_true": [
+        "9589",
+        0
+      ]
+    },
+    "class_type": "ComfySwitchNode",
+    "_meta": {
+      "title": "If/Else Switch"
+    }
+  },
+  "9609": {
+    "inputs": {
+      "switch": [
+        "9605",
+        1
+      ],
+      "on_false": [
+        "9607",
+        1
+      ],
+      "on_true": [
+        "9589",
+        1
+      ]
+    },
+    "class_type": "ComfySwitchNode",
+    "_meta": {
+      "title": "If/Else Switch"
+    }
+  },
+  "9657:1": {
+    "inputs": {
+      "lora_name": "None",
+      "strength_model": 0.0,
+      "model": [
+        "47",
+        0
+      ]
+    },
+    "class_type": "LoraLoaderModelOnly",
+    "_meta": {
+      "title": "MiniMax LoRA Slot 1"
+    }
+  },
+  "9657:2": {
+    "inputs": {
+      "lora_name": "None",
+      "strength_model": 0.0,
+      "model": [
+        "9657:1",
+        0
+      ]
+    },
+    "class_type": "LoraLoaderModelOnly",
+    "_meta": {
+      "title": "MiniMax LoRA Slot 2"
+    }
+  },
+  "9657:3": {
+    "inputs": {
+      "lora_name": "None",
+      "strength_model": 0.0,
+      "model": [
+        "9657:2",
+        0
+      ]
+    },
+    "class_type": "LoraLoaderModelOnly",
+    "_meta": {
+      "title": "MiniMax LoRA Slot 3"
+    }
+  },
+  "9657:4": {
+    "inputs": {
+      "lora_name": "None",
+      "strength_model": 0.0,
+      "model": [
+        "9657:3",
+        0
+      ]
+    },
+    "class_type": "LoraLoaderModelOnly",
+    "_meta": {
+      "title": "MiniMax LoRA Slot 4"
+    }
+  },
+  "9852": {
+    "inputs": {
+      "anything": [
+        "9609",
+        0
+      ]
+    },
+    "class_type": "easy cleanGpuUsed",
+    "_meta": {
+      "title": "Clean VRAM Used"
+    }
+  },
+  "9860": {
+    "inputs": {
+      "image_urls": "[]",
+      "video_urls": "[]",
+      "audio_urls": "[]"
+    },
+    "class_type": "MiniMax_S3_BatchLoader",
+    "_meta": {
+      "title": "MiniMax S3 Batch Loader"
+    }
+  },
+  "9862": {
+    "inputs": {
+      "references": [
+        "9860",
+        0
+      ]
+    },
+    "class_type": "MiniMaxH3ReferenceSplitter",
+    "_meta": {
+      "title": "Fantastic H3 Reference Splitter"
+    }
+  },
+  "9522:9361": {
+    "inputs": {
+      "scheduler": "simple",
+      "steps": 6,
+      "denoise": 1
+    },
+    "class_type": "BasicScheduler",
+    "_meta": {
+      "title": "BasicScheduler"
+    }
+  },
+  "9522:9360": {
+    "inputs": {
+      "sampler_name": "euler"
+    },
+    "class_type": "KSamplerSelect",
+    "_meta": {
+      "title": "KSamplerSelect"
+    }
+  },
+  "9522:9363": {
+    "inputs": {
+      "item_0": "euler",
+      "item_1": "simple",
+      "item_2": ""
+    },
+    "class_type": "Basic data handling: ListCreate",
+    "_meta": {
+      "title": "create LIST"
+    }
+  },
+  "9522:9369:9367": {
+    "inputs": {
+      "index": 0
+    },
+    "class_type": "easy indexAnything",
+    "_meta": {
+      "title": "sampler_name"
+    }
+  },
+  "9522:9369:9368": {
+    "inputs": {
+      "index": 1
+    },
+    "class_type": "easy indexAnything",
+    "_meta": {
+      "title": "scheduler"
+    }
+  },
+  "9441:5770": {
+    "inputs": {
+      "width": 512,
+      "height": 512,
+      "batch_size": 1,
+      "color": 0
+    },
+    "class_type": "EmptyImage",
+    "_meta": {
+      "title": "Empty Image"
+    }
+  },
+  "9441:5775": {
+    "inputs": {
+      "aspect_ratio": "16:9",
+      "proportional_width": 21,
+      "proportional_height": 9,
+      "fit": "crop",
+      "method": "lanczos",
+      "round_to_multiple": "32",
+      "scale_to_side": "longest",
+      "scale_to_length": 1280,
+      "background_color": "#000000",
+      "image": [
+        "9441:5770",
+        0
+      ]
+    },
+    "class_type": "LayerUtility: ImageScaleByAspectRatio V2",
+    "_meta": {
+      "title": "LayerUtility: ImageScaleByAspectRatio V2"
+    }
+  },
+  "9859:9853": {
+    "inputs": {
+      "clip_name": "qwen3vl_32b_heretic_minimax_h3_nvfp4.safetensors",
+      "type": "minimax",
+      "device": "default"
+    },
+    "class_type": "CLIPLoader",
+    "_meta": {
+      "title": "Load CLIP"
+    }
+  },
+  "9859:9854": {
+    "inputs": {
+      "vae_name": "minimax_h3_video_vae_fp16.safetensors"
+    },
+    "class_type": "VAELoader",
+    "_meta": {
+      "title": "Load VAE Video"
+    }
+  },
+  "9859:9855": {
+    "inputs": {
+      "vae_name": "minimax_h3_audio_vae_fp32.safetensors"
+    },
+    "class_type": "VAELoader",
+    "_meta": {
+      "title": "Load VAE Audio"
+    }
+  },
+  "9859:9856": {
+    "inputs": {
+      "model_name": "10Eros_Max_h3_TURBO-hybrid_beta3_int8_convrot.safetensors",
+      "weight_dtype": "default",
+      "compute_dtype": "default",
+      "patch_cublaslinear": false,
+      "sage_attention": [
+        "9859:9730",
+        0
+      ],
+      "enable_fp16_accumulation": true
+    },
+    "class_type": "DiffusionModelLoaderKJ",
+    "_meta": {
+      "title": "Diffusion Model Loader KJ"
+    }
+  },
+  "9859:9730": {
+    "inputs": {
+      "text": [
+        "9859:9726",
+        0
+      ]
+    },
+    "class_type": "CR String To Combo",
+    "_meta": {
+      "title": "🔧 CR String To Combo"
+    }
+  },
+  "9859:9726": {
+    "inputs": {
+      "json_string": "{\n\"comfy_kitchen_attention\": \"disabled\",\n\"sage_attention\": \"auto\",\n\"none\": \"disabled\"\n}\n",
+      "key": [
+        "9859:9709",
+        0
+      ]
+    },
+    "class_type": "JsonExtractString",
+    "_meta": {
+      "title": "Extract Text from JSON"
+    }
+  },
+  "9859:9857": {
+    "inputs": {
+      "chunks": 64,
+      "seq_threshold": 1536,
+      "model": [
+        "9859:9825",
+        0
+      ]
+    },
+    "class_type": "MiniMaxChunkFeedForward",
+    "_meta": {
+      "title": "MiniMax H3 Chunk FeedForward"
+    }
+  },
+  "9859:9713": {
+    "inputs": {
+      "select": [
+        "9859:9709",
+        1
+      ],
+      "case_0": [
+        "9859:9712",
+        0
+      ],
+      "case_1": [
+        "9859:9856",
+        0
+      ],
+      "case_2": [
+        "9859:9856",
+        0
+      ]
+    },
+    "class_type": "Basic data handling: SwitchCase",
+    "_meta": {
+      "title": "switch/case"
+    }
+  },
+  "9859:9858": {
+    "inputs": {
+      "item_0": [
+        "9859:9752",
+        0
+      ],
+      "item_1": [
+        "9859:9853",
+        0
+      ],
+      "item_2": [
+        "9859:9854",
+        0
+      ],
+      "item_3": [
+        "9859:9855",
+        0
+      ],
+      "item_4": ""
+    },
+    "class_type": "Basic data handling: ListCreate",
+    "_meta": {
+      "title": "create LIST"
+    }
+  },
+  "9859:9752": {
+    "inputs": {
+      "switch": true,
+      "on_false": [
+        "9859:9857",
+        0
+      ],
+      "on_true": [
+        "9859:9751",
+        0
+      ]
+    },
+    "class_type": "ComfySwitchNode",
+    "_meta": {
+      "title": "If/Else Switch"
+    }
+  },
+  "9859:9751": {
+    "inputs": {
+      "tau_video": 1.65,
+      "tau_audio": 0.2,
+      "step_ratio": 0.85,
+      "max_context_len": 2048,
+      "enable_video": true,
+      "kv_cache_dtype": "exact_kv",
+      "enable_audio": false,
+      "attention_type": "3d",
+      "model": [
+        "9859:9857",
+        0
+      ]
+    },
+    "class_type": "SolAttnPatch",
+    "_meta": {
+      "title": "SolAttnPatch"
+    }
+  },
+  "9859:9712": {
+    "inputs": {
+      "attention": "comfy kitchen attention",
+      "model": [
+        "9859:9856",
+        0
+      ]
+    },
+    "class_type": "ModelAttentionBackend",
+    "_meta": {
+      "title": "Model Attention Backend"
+    }
+  },
+  "9859:9825": {
+    "inputs": {
+      "model": [
+        "9859:9713",
+        0
+      ]
+    },
+    "class_type": "MiniMaxH3MemoryEfficientSageAttentionPatch",
+    "_meta": {
+      "title": "MiniMax H3 Mem Eff Sage Attention Patch"
+    }
+  },
+  "9859:9709": {
+    "inputs": {
+      "choice": "comfy_kitchen_attention",
+      "index": 0,
+      "option1": "comfy_kitchen_attention",
+      "option2": "sage_attention",
+      "option3": "none",
+      "option4": ""
+    },
+    "class_type": "CustomCombo",
+    "_meta": {
+      "title": "Custom Combo"
+    }
+  },
+  "9525:9523": {
+    "inputs": {
+      "index": 0,
+      "any": [
+        "9522:9363",
+        0
+      ]
+    },
+    "class_type": "easy indexAnything",
+    "_meta": {
+      "title": "sampler_name"
+    }
+  },
+  "9525:9524": {
+    "inputs": {
+      "index": 1,
+      "any": [
+        "9522:9363",
+        0
+      ]
+    },
+    "class_type": "easy indexAnything",
+    "_meta": {
+      "title": "scheduler"
+    }
+  },
+  "9432:177": {
+    "inputs": {
+      "index": 0,
+      "any": [
+        "9859:9858",
+        0
+      ]
+    },
+    "class_type": "easy indexAnything",
+    "_meta": {
+      "title": "model"
+    }
+  },
+  "9432:178": {
+    "inputs": {
+      "index": 1,
+      "any": [
+        "9859:9858",
+        0
+      ]
+    },
+    "class_type": "easy indexAnything",
+    "_meta": {
+      "title": "model"
+    }
+  },
+  "9432:179": {
+    "inputs": {
+      "index": 2,
+      "any": [
+        "9859:9858",
+        0
+      ]
+    },
+    "class_type": "easy indexAnything",
+    "_meta": {
+      "title": "vae_video"
+    }
+  },
+  "9432:9431": {
+    "inputs": {
+      "index": 3,
+      "any": [
+        "9859:9858",
+        0
+      ]
+    },
+    "class_type": "easy indexAnything",
+    "_meta": {
+      "title": "vae_audio"
+    }
+  },
+  "9464:9455": {
+    "inputs": {
+      "image": [
+        "9862",
+        0
+      ]
+    },
+    "class_type": "ImageExists",
+    "_meta": {
+      "title": "Image Exists"
+    }
+  },
+  "9464:9459": {
+    "inputs": {
+      "width": 768,
+      "height": 768,
+      "upscale_method": "lanczos",
+      "keep_proportion": "pad_edge",
+      "pad_color": "0, 0, 0",
+      "crop_position": "center",
+      "divisible_by": 2,
+      "device": "cpu",
+      "image": [
+        "9464:9455",
+        0
+      ]
+    },
+    "class_type": "ImageResizeKJv2",
+    "_meta": {
+      "title": "Resize Image v2"
+    }
+  },
+  "9464:9462": {
+    "inputs": {
+      "width": 768,
+      "height": 768,
+      "upscale_method": "lanczos",
+      "keep_proportion": "pad_edge",
+      "pad_color": "0, 0, 0",
+      "crop_position": "center",
+      "divisible_by": 2,
+      "device": "cpu",
+      "image": [
+        "9464:9463",
+        0
+      ]
+    },
+    "class_type": "ImageResizeKJv2",
+    "_meta": {
+      "title": "Resize Image v2"
+    }
+  },
+  "9464:9458": {
+    "inputs": {
+      "images.image0": [
+        "9464:9459",
+        0
+      ],
+      "images.image1": [
+        "9464:9462",
+        0
+      ]
+    },
+    "class_type": "BatchImagesNode",
+    "_meta": {
+      "title": "Batch Images"
+    }
+  },
+  "9464:9463": {
+    "inputs": {
+      "image": [
+        "9862",
+        1
+      ]
+    },
+    "class_type": "ImageExists",
+    "_meta": {
+      "title": "Image Exists"
+    }
+  },
+  "9464:9465": {
+    "inputs": {
+      "switch": [
+        "9464:9463",
+        1
+      ],
+      "on_false": [
+        "9464:9459",
+        0
+      ],
+      "on_true": [
+        "9464:9458",
+        0
+      ]
+    },
+    "class_type": "ComfySwitchNode",
+    "_meta": {
+      "title": "If/Else Switch"
+    }
+  },
+  "9850:9783": {
+    "inputs": {
+      "switch": false,
+      "on_false": [
+        "9862",
+        12
+      ]
+    },
+    "class_type": "ComfySwitchNode",
+    "_meta": {
+      "title": "If/Else Switch"
+    }
+  },
+  "9848:9785": {
+    "inputs": {
+      "switch": false,
+      "on_false": [
+        "9862",
+        13
+      ]
+    },
+    "class_type": "ComfySwitchNode",
+    "_meta": {
+      "title": "If/Else Switch"
+    }
+  },
+  "9846:9789": {
+    "inputs": {
+      "switch": false,
+      "on_false": [
+        "9862",
+        14
+      ]
+    },
+    "class_type": "ComfySwitchNode",
+    "_meta": {
+      "title": "If/Else Switch"
+    }
+  },
+  "9851:9793": {
+    "inputs": {
+      "switch": false,
+      "on_false": [
+        "9862",
+        15
+      ]
+    },
+    "class_type": "ComfySwitchNode",
+    "_meta": {
+      "title": "If/Else Switch"
+    }
+  },
+  "9849:9796": {
+    "inputs": {
+      "switch": false,
+      "on_false": [
+        "9862",
+        16
+      ]
+    },
+    "class_type": "ComfySwitchNode",
+    "_meta": {
+      "title": "If/Else Switch"
+    }
+  },
+  "9847:9799": {
+    "inputs": {
+      "switch": false,
+      "on_false": [
+        "9862",
+        17
+      ]
+    },
+    "class_type": "ComfySwitchNode",
+    "_meta": {
+      "title": "If/Else Switch"
+    }
+  },
+  "9473:9467": {
+    "inputs": {
+      "image": [
+        "9464:9465",
+        0
+      ]
+    },
+    "class_type": "ImageExists",
+    "_meta": {
+      "title": "Image Exists"
+    }
+  },
+  "9473:9468": {
+    "inputs": {
+      "width": 768,
+      "height": 768,
+      "upscale_method": "lanczos",
+      "keep_proportion": "pad_edge",
+      "pad_color": "0, 0, 0",
+      "crop_position": "center",
+      "divisible_by": 2,
+      "device": "cpu",
+      "image": [
+        "9473:9467",
+        0
+      ]
+    },
+    "class_type": "ImageResizeKJv2",
+    "_meta": {
+      "title": "Resize Image v2"
+    }
+  },
+  "9473:9469": {
+    "inputs": {
+      "width": 768,
+      "height": 768,
+      "upscale_method": "lanczos",
+      "keep_proportion": "pad_edge",
+      "pad_color": "0, 0, 0",
+      "crop_position": "center",
+      "divisible_by": 2,
+      "device": "cpu",
+      "image": [
+        "9473:9471",
+        0
+      ]
+    },
+    "class_type": "ImageResizeKJv2",
+    "_meta": {
+      "title": "Resize Image v2"
+    }
+  },
+  "9473:9470": {
+    "inputs": {
+      "images.image0": [
+        "9473:9468",
+        0
+      ],
+      "images.image1": [
+        "9473:9469",
+        0
+      ]
+    },
+    "class_type": "BatchImagesNode",
+    "_meta": {
+      "title": "Batch Images"
+    }
+  },
+  "9473:9471": {
+    "inputs": {
+      "image": [
+        "9862",
+        2
+      ]
+    },
+    "class_type": "ImageExists",
+    "_meta": {
+      "title": "Image Exists"
+    }
+  },
+  "9473:9472": {
+    "inputs": {
+      "switch": [
+        "9473:9471",
+        1
+      ],
+      "on_false": [
+        "9473:9468",
+        0
+      ],
+      "on_true": [
+        "9473:9470",
+        0
+      ]
+    },
+    "class_type": "ComfySwitchNode",
+    "_meta": {
+      "title": "If/Else Switch"
+    }
+  },
+  "9480:9474": {
+    "inputs": {
+      "image": [
+        "9473:9472",
+        0
+      ]
+    },
+    "class_type": "ImageExists",
+    "_meta": {
+      "title": "Image Exists"
+    }
+  },
+  "9480:9475": {
+    "inputs": {
+      "width": 768,
+      "height": 768,
+      "upscale_method": "lanczos",
+      "keep_proportion": "pad_edge",
+      "pad_color": "0, 0, 0",
+      "crop_position": "center",
+      "divisible_by": 2,
+      "device": "cpu",
+      "image": [
+        "9480:9474",
+        0
+      ]
+    },
+    "class_type": "ImageResizeKJv2",
+    "_meta": {
+      "title": "Resize Image v2"
+    }
+  },
+  "9480:9476": {
+    "inputs": {
+      "width": 768,
+      "height": 768,
+      "upscale_method": "lanczos",
+      "keep_proportion": "pad_edge",
+      "pad_color": "0, 0, 0",
+      "crop_position": "center",
+      "divisible_by": 2,
+      "device": "cpu",
+      "image": [
+        "9480:9478",
+        0
+      ]
+    },
+    "class_type": "ImageResizeKJv2",
+    "_meta": {
+      "title": "Resize Image v2"
+    }
+  },
+  "9480:9477": {
+    "inputs": {
+      "images.image0": [
+        "9480:9475",
+        0
+      ],
+      "images.image1": [
+        "9480:9476",
+        0
+      ]
+    },
+    "class_type": "BatchImagesNode",
+    "_meta": {
+      "title": "Batch Images"
+    }
+  },
+  "9480:9478": {
+    "inputs": {
+      "image": [
+        "9862",
+        3
+      ]
+    },
+    "class_type": "ImageExists",
+    "_meta": {
+      "title": "Image Exists"
+    }
+  },
+  "9480:9479": {
+    "inputs": {
+      "switch": [
+        "9480:9478",
+        1
+      ],
+      "on_false": [
+        "9480:9475",
+        0
+      ],
+      "on_true": [
+        "9480:9477",
+        0
+      ]
+    },
+    "class_type": "ComfySwitchNode",
+    "_meta": {
+      "title": "If/Else Switch"
+    }
+  },
+  "9487:9481": {
+    "inputs": {
+      "image": [
+        "9480:9479",
+        0
+      ]
+    },
+    "class_type": "ImageExists",
+    "_meta": {
+      "title": "Image Exists"
+    }
+  },
+  "9487:9482": {
+    "inputs": {
+      "width": 768,
+      "height": 768,
+      "upscale_method": "lanczos",
+      "keep_proportion": "pad_edge",
+      "pad_color": "0, 0, 0",
+      "crop_position": "center",
+      "divisible_by": 2,
+      "device": "cpu",
+      "image": [
+        "9487:9481",
+        0
+      ]
+    },
+    "class_type": "ImageResizeKJv2",
+    "_meta": {
+      "title": "Resize Image v2"
+    }
+  },
+  "9487:9483": {
+    "inputs": {
+      "width": 768,
+      "height": 768,
+      "upscale_method": "lanczos",
+      "keep_proportion": "pad_edge",
+      "pad_color": "0, 0, 0",
+      "crop_position": "center",
+      "divisible_by": 2,
+      "device": "cpu",
+      "image": [
+        "9487:9485",
+        0
+      ]
+    },
+    "class_type": "ImageResizeKJv2",
+    "_meta": {
+      "title": "Resize Image v2"
+    }
+  },
+  "9487:9484": {
+    "inputs": {
+      "images.image0": [
+        "9487:9482",
+        0
+      ],
+      "images.image1": [
+        "9487:9483",
+        0
+      ]
+    },
+    "class_type": "BatchImagesNode",
+    "_meta": {
+      "title": "Batch Images"
+    }
+  },
+  "9487:9485": {
+    "inputs": {
+      "image": [
+        "9862",
+        4
+      ]
+    },
+    "class_type": "ImageExists",
+    "_meta": {
+      "title": "Image Exists"
+    }
+  },
+  "9487:9486": {
+    "inputs": {
+      "switch": [
+        "9487:9485",
+        1
+      ],
+      "on_false": [
+        "9487:9482",
+        0
+      ],
+      "on_true": [
+        "9487:9484",
+        0
+      ]
+    },
+    "class_type": "ComfySwitchNode",
+    "_meta": {
+      "title": "If/Else Switch"
+    }
+  },
+  "9494:9488": {
+    "inputs": {
+      "image": [
+        "9487:9486",
+        0
+      ]
+    },
+    "class_type": "ImageExists",
+    "_meta": {
+      "title": "Image Exists"
+    }
+  },
+  "9494:9489": {
+    "inputs": {
+      "width": 768,
+      "height": 768,
+      "upscale_method": "lanczos",
+      "keep_proportion": "pad_edge",
+      "pad_color": "0, 0, 0",
+      "crop_position": "center",
+      "divisible_by": 2,
+      "device": "cpu",
+      "image": [
+        "9494:9488",
+        0
+      ]
+    },
+    "class_type": "ImageResizeKJv2",
+    "_meta": {
+      "title": "Resize Image v2"
+    }
+  },
+  "9494:9490": {
+    "inputs": {
+      "width": 768,
+      "height": 768,
+      "upscale_method": "lanczos",
+      "keep_proportion": "pad_edge",
+      "pad_color": "0, 0, 0",
+      "crop_position": "center",
+      "divisible_by": 2,
+      "device": "cpu",
+      "image": [
+        "9494:9492",
+        0
+      ]
+    },
+    "class_type": "ImageResizeKJv2",
+    "_meta": {
+      "title": "Resize Image v2"
+    }
+  },
+  "9494:9491": {
+    "inputs": {
+      "images.image0": [
+        "9494:9489",
+        0
+      ],
+      "images.image1": [
+        "9494:9490",
+        0
+      ]
+    },
+    "class_type": "BatchImagesNode",
+    "_meta": {
+      "title": "Batch Images"
+    }
+  },
+  "9494:9492": {
+    "inputs": {
+      "image": [
+        "9862",
+        5
+      ]
+    },
+    "class_type": "ImageExists",
+    "_meta": {
+      "title": "Image Exists"
+    }
+  },
+  "9494:9493": {
+    "inputs": {
+      "switch": [
+        "9494:9492",
+        1
+      ],
+      "on_false": [
+        "9494:9489",
+        0
+      ],
+      "on_true": [
+        "9494:9491",
+        0
+      ]
+    },
+    "class_type": "ComfySwitchNode",
+    "_meta": {
+      "title": "If/Else Switch"
+    }
+  },
+  "9501:9495": {
+    "inputs": {
+      "image": [
+        "9494:9493",
+        0
+      ]
+    },
+    "class_type": "ImageExists",
+    "_meta": {
+      "title": "Image Exists"
+    }
+  },
+  "9501:9496": {
+    "inputs": {
+      "width": 768,
+      "height": 768,
+      "upscale_method": "lanczos",
+      "keep_proportion": "pad_edge",
+      "pad_color": "0, 0, 0",
+      "crop_position": "center",
+      "divisible_by": 2,
+      "device": "cpu",
+      "image": [
+        "9501:9495",
+        0
+      ]
+    },
+    "class_type": "ImageResizeKJv2",
+    "_meta": {
+      "title": "Resize Image v2"
+    }
+  },
+  "9501:9497": {
+    "inputs": {
+      "width": 768,
+      "height": 768,
+      "upscale_method": "lanczos",
+      "keep_proportion": "pad_edge",
+      "pad_color": "0, 0, 0",
+      "crop_position": "center",
+      "divisible_by": 2,
+      "device": "cpu",
+      "image": [
+        "9501:9499",
+        0
+      ]
+    },
+    "class_type": "ImageResizeKJv2",
+    "_meta": {
+      "title": "Resize Image v2"
+    }
+  },
+  "9501:9498": {
+    "inputs": {
+      "images.image0": [
+        "9501:9496",
+        0
+      ],
+      "images.image1": [
+        "9501:9497",
+        0
+      ]
+    },
+    "class_type": "BatchImagesNode",
+    "_meta": {
+      "title": "Batch Images"
+    }
+  },
+  "9501:9499": {
+    "inputs": {
+      "image": [
+        "9862",
+        6
+      ]
+    },
+    "class_type": "ImageExists",
+    "_meta": {
+      "title": "Image Exists"
+    }
+  },
+  "9501:9500": {
+    "inputs": {
+      "switch": [
+        "9501:9499",
+        1
+      ],
+      "on_false": [
+        "9501:9496",
+        0
+      ],
+      "on_true": [
+        "9501:9498",
+        0
+      ]
+    },
+    "class_type": "ComfySwitchNode",
+    "_meta": {
+      "title": "If/Else Switch"
+    }
+  },
+  "9508:9502": {
+    "inputs": {
+      "image": [
+        "9501:9500",
+        0
+      ]
+    },
+    "class_type": "ImageExists",
+    "_meta": {
+      "title": "Image Exists"
+    }
+  },
+  "9508:9503": {
+    "inputs": {
+      "width": 768,
+      "height": 768,
+      "upscale_method": "lanczos",
+      "keep_proportion": "pad_edge",
+      "pad_color": "0, 0, 0",
+      "crop_position": "center",
+      "divisible_by": 2,
+      "device": "cpu",
+      "image": [
+        "9508:9502",
+        0
+      ]
+    },
+    "class_type": "ImageResizeKJv2",
+    "_meta": {
+      "title": "Resize Image v2"
+    }
+  },
+  "9508:9504": {
+    "inputs": {
+      "width": 768,
+      "height": 768,
+      "upscale_method": "lanczos",
+      "keep_proportion": "pad_edge",
+      "pad_color": "0, 0, 0",
+      "crop_position": "center",
+      "divisible_by": 2,
+      "device": "cpu",
+      "image": [
+        "9508:9506",
+        0
+      ]
+    },
+    "class_type": "ImageResizeKJv2",
+    "_meta": {
+      "title": "Resize Image v2"
+    }
+  },
+  "9508:9505": {
+    "inputs": {
+      "images.image0": [
+        "9508:9503",
+        0
+      ],
+      "images.image1": [
+        "9508:9504",
+        0
+      ]
+    },
+    "class_type": "BatchImagesNode",
+    "_meta": {
+      "title": "Batch Images"
+    }
+  },
+  "9508:9506": {
+    "inputs": {
+      "image": [
+        "9862",
+        7
+      ]
+    },
+    "class_type": "ImageExists",
+    "_meta": {
+      "title": "Image Exists"
+    }
+  },
+  "9508:9507": {
+    "inputs": {
+      "switch": [
+        "9508:9506",
+        1
+      ],
+      "on_false": [
+        "9508:9503",
+        0
+      ],
+      "on_true": [
+        "9508:9505",
+        0
+      ]
+    },
+    "class_type": "ComfySwitchNode",
+    "_meta": {
+      "title": "If/Else Switch"
+    }
+  },
+  "9515:9510": {
+    "inputs": {
+      "width": 768,
+      "height": 768,
+      "upscale_method": "lanczos",
+      "keep_proportion": "pad_edge",
+      "pad_color": "0, 0, 0",
+      "crop_position": "center",
+      "divisible_by": 2,
+      "device": "cpu",
+      "image": [
+        "9515:9509",
+        0
+      ]
+    },
+    "class_type": "ImageResizeKJv2",
+    "_meta": {
+      "title": "Resize Image v2"
+    }
+  },
+  "9515:9511": {
+    "inputs": {
+      "width": 768,
+      "height": 768,
+      "upscale_method": "lanczos",
+      "keep_proportion": "pad_edge",
+      "pad_color": "0, 0, 0",
+      "crop_position": "center",
+      "divisible_by": 2,
+      "device": "cpu",
+      "image": [
+        "9515:9513",
+        0
+      ]
+    },
+    "class_type": "ImageResizeKJv2",
+    "_meta": {
+      "title": "Resize Image v2"
+    }
+  },
+  "9515:9512": {
+    "inputs": {
+      "images.image0": [
+        "9515:9510",
+        0
+      ],
+      "images.image1": [
+        "9515:9511",
+        0
+      ]
+    },
+    "class_type": "BatchImagesNode",
+    "_meta": {
+      "title": "Batch Images"
+    }
+  },
+  "9515:9513": {
+    "inputs": {
+      "image": [
+        "9862",
+        8
+      ]
+    },
+    "class_type": "ImageExists",
+    "_meta": {
+      "title": "Image Exists"
+    }
+  },
+  "9515:9514": {
+    "inputs": {
+      "switch": [
+        "9515:9513",
+        1
+      ],
+      "on_false": [
+        "9515:9510",
+        0
+      ],
+      "on_true": [
+        "9515:9512",
+        0
+      ]
+    },
+    "class_type": "ComfySwitchNode",
+    "_meta": {
+      "title": "If/Else Switch"
+    }
+  },
+  "9515:9509": {
+    "inputs": {
+      "image": [
+        "9508:9507",
+        0
+      ]
+    },
+    "class_type": "ImageExists",
+    "_meta": {
+      "title": "Image Exists"
+    }
+  },
+  "9430:8905": {
+    "inputs": {
+      "switch": true,
+      "on_false": "",
+      "on_true": [
+        "9430:8931",
+        0
+      ]
+    },
+    "class_type": "ComfySwitchNode",
+    "_meta": {
+      "title": "If/Else Switch"
+    }
+  },
+  "9430:8903": {
+    "inputs": {
+      "string_a": "Базовый промпт:\n",
+      "string_b": "",
+      "delimiter": ""
+    },
+    "class_type": "StringConcatenate",
+    "_meta": {
+      "title": "Prompt"
+    }
+  },
+  "9430:8930": {
+    "inputs": {
+      "string_a": [
+        "9430:8903",
+        0
+      ],
+      "string_b": "\n\nДлительность генерируемого видео: DURATION секунд.",
+      "delimiter": ""
+    },
+    "class_type": "StringConcatenate",
+    "_meta": {
+      "title": "Duration"
+    }
+  },
+  "9430:8931": {
+    "inputs": {
+      "string": [
+        "9430:8930",
+        0
+      ],
+      "find": "DURATION",
+      "replace": [
+        "9430:8940",
+        0
+      ]
+    },
+    "class_type": "StringReplace",
+    "_meta": {
+      "title": "Add Duration"
+    }
+  },
+  "9430:8937:8933": {
+    "inputs": {
+      "index": 0,
+      "any": [
+        "9435",
+        0
+      ]
+    },
+    "class_type": "easy indexAnything",
+    "_meta": {
+      "title": "images"
+    }
+  },
+  "9430:8937:8934": {
+    "inputs": {
+      "index": 1,
+      "any": [
+        "9435",
+        0
+      ]
+    },
+    "class_type": "easy indexAnything",
+    "_meta": {
+      "title": "use_images"
+    }
+  },
+  "9430:8937:8935": {
+    "inputs": {
+      "index": 2,
+      "any": [
+        "9435",
+        0
+      ]
+    },
+    "class_type": "easy indexAnything",
+    "_meta": {
+      "title": "seed"
+    }
+  },
+  "9430:8937:8936": {
+    "inputs": {
+      "index": 3,
+      "any": [
+        "9435",
+        0
+      ]
+    },
+    "class_type": "easy indexAnything",
+    "_meta": {
+      "title": "duration"
+    }
+  },
+  "9430:8940": {
+    "inputs": {
+      "input": [
+        "9430:8937:8936",
+        0
+      ]
+    },
+    "class_type": "Basic data handling: CastToString",
+    "_meta": {
+      "title": "to STRING"
+    }
+  },
+  "9430:5754": {
+    "inputs": {
+      "value": [
+        "9430:8937:8935",
+        0
+      ]
+    },
+    "class_type": "PrimitiveInt",
+    "_meta": {
+      "title": "Seed"
+    }
+  },
+  "9430:9398": {
+    "inputs": {
+      "anything": [
+        "9430:8905",
+        0
+      ]
+    },
+    "class_type": "easy cleanGpuUsed",
+    "_meta": {
+      "title": "Clean VRAM Used"
+    }
+  },
+  "9430:391:379": {
+    "inputs": {
+      "Input": [
+        "9430:391:383",
+        0
+      ],
+      "image1": [
+        "9430:391:8870",
+        0
+      ],
+      "image2": [
+        "9430:391:5872",
+        0
+      ]
+    },
+    "class_type": "CR Image Input Switch",
+    "_meta": {
+      "title": "🔀 CR Image Input Switch"
+    }
+  },
+  "9430:391:5872": {
+    "inputs": {
+      "width": 1,
+      "height": 1,
+      "batch_size": 1,
+      "color": 0
+    },
+    "class_type": "EmptyImage",
+    "_meta": {
+      "title": "Empty Image"
+    }
+  },
+  "9430:391:383": {
+    "inputs": {
+      "value_if_true": 1,
+      "value_if_false": 2,
+      "boolean": [
+        "9430:8937:8934",
+        0
+      ]
+    },
+    "class_type": "CR Set Value On Boolean",
+    "_meta": {
+      "title": "⚙️ CR Set Value On Boolean"
+    }
+  },
+  "9430:391:8870": {
+    "inputs": {
+      "upscale_method": "lanczos",
+      "largest_size": 768,
+      "image": [
+        "9430:8937:8933",
+        0
+      ]
+    },
+    "class_type": "ImageScaleToMaxDimension",
+    "_meta": {
+      "title": "Scale Image to Max Dimension"
+    }
+  }
+}
