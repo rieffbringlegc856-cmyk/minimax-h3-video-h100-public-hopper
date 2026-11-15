@@ -297,8 +297,7 @@ def handler(event):
         wf["9859:9853"]["inputs"]["device"] = "default"
 
     # =========================================================================
-    # ДИНАМИЧЕСКАЯ НАСТРОЙКА ЦЕПОЧКИ LORA (от 0 до 4 штук)
-    # Заменяет старые PowerLoraLoader на интеллектуальное управление слотами 9657:1 - 9657:4
+    # ДИНАМИЧЕСКАЯ НАСТРОЙКА ЦЕПОЧКИ LORA (от 0 до 4 штук) с исправлением связей графа
     # =========================================================================
     raw_loras = job_input.get("loras", [])
     valid_loras = []
@@ -315,7 +314,8 @@ def handler(event):
 
     print(f"[HANDLER] Активных LoRA к применению: {len(valid_loras)}", flush=True)
 
-    # Исходная точка для модели перед лорами — выход ноды ModelSamplingMiniMaxH3 (нода 47)
+    # Исходная точка модели — выход ноды ModelSamplingMiniMaxH3 (нода 47)
+    target_model_source = ["47", 0]
     last_lora_output_node = "47"
 
     for i in range(1, 5):
@@ -326,7 +326,6 @@ def handler(event):
                 wf[node_id]["inputs"]["lora_name"] = lora_data["name"]
                 wf[node_id]["inputs"]["strength_model"] = lora_data["strength"]
                 
-                # Выстраиваем цепочку передачи модели последовательно
                 if i == 1:
                     wf[node_id]["inputs"]["model"] = ["47", 0]
                 else:
@@ -335,17 +334,21 @@ def handler(event):
                 last_lora_output_node = node_id
                 print(f"  -> Слот {i} ({node_id}) активен: {lora_data['name']} (сила: {lora_data['strength']})", flush=True)
             else:
-                # Если лор меньше, чем слот — удаляем лишнюю ноду из графа воркфлоу
                 del wf[node_id]
                 print(f"  -> Слот {i} ({node_id}) отключен (нет лор)", flush=True)
 
-    # Перенаправляем выход модели для последующих нод (например, BasicGuider или ModelSampling)
-    # на последнюю реально отработавшую ноду лор (или на ноду 47, если лор вообще 0)
+    # Если лоры есть, точкой выхода становится последняя нода лор. Если лор нет, оставляем ноду 47.
+    if valid_loras:
+        target_model_source = [last_lora_output_node, 0]
+
+    # Безопасно обновляем все ссылки на модель в воркфлоу, чтобы избежать KeyError
     for n_id, n_data in wf.items():
         if "inputs" in n_data:
             for k, v in n_data["inputs"].items():
-                if isinstance(v, list) and len(v) == 2 and v[0].startswith("9657:"):
-                    n_data["inputs"][k] = [last_lora_output_node, 0]
+                # Если узел ждет модель из старой логики лор или из любой ноды слотов 9657:*
+                if isinstance(v, list) and len(v) == 2:
+                    if v[0] in ("9440:9347", "9552:9550") or v[0].startswith("9657:"):
+                        n_data["inputs"][k] = target_model_source
 
     # Порог чанков под H100 (убираем дробление под 24GB 4090)
     for n_id, n_data in wf.items():
